@@ -59,7 +59,7 @@ typedef struct _THM_TMON_DATA
 typedef union _THM_REG
 {
 	uint32_t raw;
-	THM_TMON_DATA fields;
+	THM_TMON_DATA asTMON;
 } THM_REG;
 
 #define AMD_TMON_CONSTANT			((int32_t)392)
@@ -107,7 +107,7 @@ int main(int argc, char **argv)
 			return(ret);
 		}
 		
-		if(TempData.fields.VALID) printf("THM_TMON0_RDIL%d == %.3fC\n", i, AMDTMONToDegC(&TempData.fields));
+		if(TempData.asTMON.VALID) printf("THM_TMON0_RDIL%d == %.3fC\n", i, AMDTMONToDegC(&TempData.asTMON));
 		else printf("THM_TMON0_RDIL%d not valid.\n", i);
 	
 		ret = ReadMMIOReg(&GPU, mmTHM_TMON0_RDIR0_DATA + i, &TempData.raw);
@@ -119,7 +119,7 @@ int main(int argc, char **argv)
 			return(ret);
 		}
 		
-		if(TempData.fields.VALID) printf("THM_TMON0_RDIR%d == %.3fC\n", i, AMDTMONToDegC(&TempData.fields));
+		if(TempData.asTMON.VALID) printf("THM_TMON0_RDIR%d == %.3fC\n", i, AMDTMONToDegC(&TempData.asTMON));
 		else printf("THM_TMON0_RDIR%d not valid.\n", i);
 		
 	}

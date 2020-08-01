@@ -1,12 +1,16 @@
 CC = gcc
+MAKE = make
 CFLAGS = -Og -ggdb3
 RELCFLAGS = -O3 -s
 
 all: dbg
 
-dbg: amdtempthing.c libamdmmio.a
-	$(CC) $(CFLAGS) amdtempthing.c libamdmmio.a -o amdtempthing
+libamdmmio/libamdmmio.a:
+	$(MAKE) -f libamdmmio/Makefile
 
-release: amdtempthing.c libamdmmio.a
-	$(CC) $(RELCFLAGS) amdtempthing.c libamdmmio.a -o amdtempthing
+dbg: amdtempthing.c libamdmmio/libamdmmio.a
+	$(CC) $(CFLAGS) amdtempthing.c libamdmmio/libamdmmio.a -o amdtempthing
+
+release: amdtempthing.c libamdmmio/libamdmmio.a
+	$(CC) $(RELCFLAGS) amdtempthing.c libamdmmio/libamdmmio.a -o amdtempthing
 
